@@ -5,4 +5,5 @@ from rest_framework.decorators import api_view
 
 @api_view(['GET'])
 def hello_world(request):
-    return Response({"message": "Hello, world API called!"})
+    data = {"message": "Hello from the Django backend!"}
+    return Response(data)
