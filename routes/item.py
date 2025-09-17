@@ -28,3 +28,8 @@ async def list_items(current_user=Depends(lambda: get_current_user(optional=True
 async def list_item(id: int, current_user=Depends(get_optional_user)):
     item = await crud_item.get_item(id)
     return item
+
+@router.put("/{id}")
+async def edit_item(id: int, data:dict, current_user=Depends(get_optional_user)):
+    item = await crud_item.edit_item(id,data)
+    return item

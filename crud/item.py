@@ -13,4 +13,8 @@ async def get_all_items():
 
 async def get_item(id:int):
     query = items.select().where(items.c.id == id)
-    return await database.fetch_one(query) 
+    return await database.fetch_one(query)
+
+async def edit_item(id:int,data:dict):
+    query = items.update().where(items.c.id == id).values(**data)
+    return await database.execute(query)
