@@ -33,3 +33,8 @@ async def list_item(id: int, current_user=Depends(get_optional_user)):
 async def edit_item(id: int, data:dict, current_user=Depends(get_optional_user)):
     item = await crud_item.edit_item(id,data)
     return item
+
+@router.delete("/{id}")
+async def delete_item(id: int, current_user=Depends(get_optional_user)):
+    item = await crud_item.delete_item(id)
+    return item

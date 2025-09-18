@@ -8,7 +8,6 @@ async def create_item(name: str, price: int, quantity: int):
 
 async def get_all_items():
     query = items.select()
-    print("Query",query)
     return await database.fetch_all(query)
 
 async def get_item(id:int):
@@ -17,4 +16,8 @@ async def get_item(id:int):
 
 async def edit_item(id:int,data:dict):
     query = items.update().where(items.c.id == id).values(**data)
+    return await database.execute(query)
+
+async def delete_item(id:int):
+    query = items.delete().where(items.c.id == id)
     return await database.execute(query)
