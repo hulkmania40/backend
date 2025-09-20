@@ -6,8 +6,10 @@ async def create_item(name: str, price: int, quantity: int):
     item_id = await database.execute(query)
     return {"id": item_id, "name": name, "price": price, "quantity": quantity}
 
-async def get_all_items():
+async def get_all_items(name):
     query = items.select()
+    if(name):
+        query = query.where(items.c.name.ilike(f"%{name}%"))
     return await database.fetch_all(query)
 
 async def get_item(id:int):

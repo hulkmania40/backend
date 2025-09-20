@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException
+from typing import Optional
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel
 from crud import item as crud_item
 from utils.security import get_current_user
@@ -18,10 +19,10 @@ async def create_item(item: ItemCreate, current_user=Depends(lambda: get_current
                                        )
 
 @router.get("/")
-async def list_items(current_user=Depends(lambda: get_current_user(optional=True))):
+async def list_items(query: Optional[str] = Query(None),current_user=Depends(lambda: get_current_user(optional=True))):
     # if current_user["role"] == "admin":
     print("Inside router")
-    return await crud_item.get_all_items()
+    return await crud_item.get_all_items(query)
     # return await crud_item.get_items_by_user(current_user["id"])
 
 @router.get("/{id}")
