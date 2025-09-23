@@ -9,12 +9,14 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",   # React local dev
     "http://127.0.0.1:3000",
+    "http://192.168.0.104:5173/",
+    "http://localhost:8000/",
     # "https://your-frontend-domain.com"  # Deployed frontend
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,        # or ["*"] for all origins (not safe for prod)
+    allow_origins=["*"],        # or ["*"] for all origins (not safe for prod)
     allow_credentials=True,
     allow_methods=["*"],          # ["GET", "POST", ...]
     allow_headers=["*"],          # ["Content-Type", "Authorization", ...]
@@ -35,3 +37,5 @@ app.include_router(item.router, prefix="/items", tags=["Items"])
 @app.get("/")
 def root():
     return {"message": "API running 🚀"}
+
+# uvicorn main:app --reload
