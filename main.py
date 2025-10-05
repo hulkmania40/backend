@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import database
-from routes import user, item
+from routes import invoice, user, item
 
 app = FastAPI()
 
@@ -33,6 +33,7 @@ async def shutdown():
 # Routes
 app.include_router(user.router, prefix="/user", tags=["User"])
 app.include_router(item.router, prefix="/items", tags=["Items"])
+app.include_router(invoice.router, prefix="/invoices", tags=["Invoices"])
 
 @app.get("/")
 def root():
